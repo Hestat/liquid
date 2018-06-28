@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+PW(){
+         head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -18 | head -n1
+}
+
+echo -e "What is the Cpanel user?"
+read cpuser
+
+echo -e "What is the domain?"
+read domain
+
+echo -e "What is the email user?"
+read user
+
+password=$(PW)
+
+cpapi2 --user=$cpuser Email passwdpop domain=$domain email=$user password=$password
+
+echo -e "\n A result of 1 is a success, if 0 then error should appear above"
